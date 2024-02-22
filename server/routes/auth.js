@@ -12,13 +12,13 @@ router.post('/login',async(req,res)=>{
         const admin = await Admin.findOne({username})
         if(!admin)
         {
-            return res.json({message:"admin not registered"})
+            return res.json({wrongUsername:true,message:"admin not registered"})
         }
         
             const validPassword = await bcrypt.compare(password,admin.password)
             if(!validPassword)
             {
-              return  res.json({message:"wrong password"})
+              return  res.json({wrongPassword:true,message:"wrong password"})
             }
             const token = jwt.sign({username:admin.username,role:'admin'},process.env.Admin_key)
 
@@ -31,13 +31,13 @@ router.post('/login',async(req,res)=>{
         const student = await Student.findOne({username})
         if(!student)
         {
-            return res.json({message:"student not registered"})
+            return res.json({wrongUsername:true,message:"student not registered"})
         }
         
             const validPassword = await bcrypt.compare(password,student.password)
             if(!validPassword)
             {
-              return  res.json({message:"wrong password"})
+                return  res.json({wrongPassword:true,message:"wrong password"})
             }
             const token = jwt.sign({username:student.username,role:'student'},process.env.Student_key)
 

@@ -3,6 +3,7 @@ import "../css/Login.css"
 import { useState } from 'react'
 import axios from 'axios'
 import{useNavigate} from 'react-router-dom'
+import { useSnackbar } from "notistack";
 
 const AddStudent = () => {
     const[roll,setRoll]=useState('')
@@ -10,6 +11,7 @@ const AddStudent = () => {
     const[grade,setGrade]=useState('')
   const[password,setPassword]=useState('')
   const navigate= useNavigate()
+  const { enqueueSnackbar } = useSnackbar();
 
 
   const  handleSubmit =(e)=>{
@@ -23,7 +25,12 @@ const AddStudent = () => {
 axios.post('http://localhost:3000/student/register',data)
 .then((res) => {
   console.log(res)
-  console.log("you have alredy registered go do login to view the dashboard")
+  
+  if(res.data.alreadyRegistered)
+  {
+    enqueueSnackbar("already Registered", { variant: "info" });
+    console.log("alredy registered go do login to view the dashboard")
+  }
   if(res.data.registered)
   {
   navigate('/dashboard')

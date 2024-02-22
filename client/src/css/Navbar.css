@@ -28,7 +28,11 @@
   font-weight: bolder;
   
 }
-
+.navbar-brand:hover
+{
+  text-shadow: 0 0 10px #ffc249;
+  cursor: pointer;
+}
 .navbar-right {
   display: flex;
   align-items: center;

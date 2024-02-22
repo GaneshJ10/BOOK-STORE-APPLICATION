@@ -10,7 +10,7 @@ router.post('/register',verifyAdmin,async(req,res)=>{
         const student= await Student.findOne({username})
         if(student)
         {
-           return res.json({message:"student is registered"})
+           return res.json({alreadyRegistered:true,message:"student is registered"})
         }
         
             const hashPassword = await bcrypt.hash(password,10)

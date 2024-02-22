@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import{useNavigate} from 'react-router-dom'
 import axios from 'axios'
 import "../css/Login.css"
+import { useSnackbar } from "notistack";
 
 
 const Login = ({setRoleVar}) => {
@@ -9,6 +10,7 @@ const Login = ({setRoleVar}) => {
   const[password,setPassword]=useState('')
   const[role,setRole]=useState('admin')
   const navigate= useNavigate()
+  const { enqueueSnackbar } = useSnackbar();
 
 
     axios.defaults.withCredentials=true;
@@ -23,12 +25,38 @@ const Login = ({setRoleVar}) => {
     axios.post('http://localhost:3000/auth/login',data)
     .then((res) => {
       console.log(res)
+      if(res.data.wrongUsername)
+      {
+        enqueueSnackbar("Wrong Username", { variant: "info" });
+        console.log("Username not match, check the username")
+
+      }
+      if(res.data.wrongPassword)
+      {
+        enqueueSnackbar("Wrong Password", { variant: "info" });
+        console.log("password not match, check the password")
+
+      }
       if(res.data.login && res.data.role==='admin'){
         setRoleVar('admin')
+        console.log("admin login successfull")
         navigate('/dashboard')
       }
       else if(res.data.login && res.data.role==='student'){
+        if(res.data.wrongUsername)
+        {
+          enqueueSnackbar("Wrong Username", { variant: "info" });
+          console.log("Username not match, check the username")
+  
+        }
+        if(res.data.wrongPassword)
+        {
+          enqueueSnackbar("Wrong Password", { variant: "info" });
+          console.log("password not match, check the password")
+  
+        }
         setRoleVar('student')
+        console.log("Student login successfull")
         navigate('/')
       }
     })
