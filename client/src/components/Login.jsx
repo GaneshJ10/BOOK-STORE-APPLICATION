@@ -27,13 +27,13 @@ const Login = ({setRoleVar}) => {
       console.log(res)
       if(res.data.wrongUsername)
       {
-        enqueueSnackbar("Wrong Username", { variant: "info" });
+        enqueueSnackbar("Invalid Username", { variant: "info" });
         console.log("Username not match, check the username")
 
       }
       if(res.data.wrongPassword)
       {
-        enqueueSnackbar("Wrong Password", { variant: "info" });
+        enqueueSnackbar("Invalid Password", { variant: "info" });
         console.log("password not match, check the password")
 
       }
@@ -45,13 +45,13 @@ const Login = ({setRoleVar}) => {
       else if(res.data.login && res.data.role==='student'){
         if(res.data.wrongUsername)
         {
-          enqueueSnackbar("Wrong Username", { variant: "info" });
+          enqueueSnackbar("Invalid Username", { variant: "info" });
           console.log("Username not match, check the username")
   
         }
         if(res.data.wrongPassword)
         {
-          enqueueSnackbar("Wrong Password", { variant: "info" });
+          enqueueSnackbar("Invalid Password", { variant: "info" });
           console.log("password not match, check the password")
   
         }
