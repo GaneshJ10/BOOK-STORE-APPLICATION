@@ -3,12 +3,14 @@ import "../css/Login.css"
 import { useState } from 'react'
 import axios from 'axios'
 import{useNavigate} from 'react-router-dom'
+import { useSnackbar } from "notistack";
 
 const AddBook = () => {
     const[name,setName]=useState('')
     const[author,setAuthor]=useState('')
     const[imageUrl,setImageUrl]=useState('')
   const navigate= useNavigate()
+  const { enqueueSnackbar } = useSnackbar();
 
 
   const  handleSubmit =(e)=>{
@@ -22,6 +24,7 @@ axios.post('http://localhost:3000/book/add',data)
 .then((res) => {
     if(res.data.added)
     {
+      enqueueSnackbar("book created", { variant: "success" });
   navigate('/books')
     }
     else{

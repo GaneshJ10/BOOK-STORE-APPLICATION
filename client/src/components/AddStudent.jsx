@@ -33,6 +33,7 @@ axios.post('http://localhost:3000/student/register',data)
   }
   if(res.data.registered)
   {
+    enqueueSnackbar("student registration success", { variant: "success" });
   navigate('/dashboard')
   }
   console.log(res)

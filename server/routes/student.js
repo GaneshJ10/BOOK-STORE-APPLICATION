@@ -7,7 +7,7 @@ import { verifyAdmin } from './auth.js'
 router.post('/register',verifyAdmin,async(req,res)=>{
     try{
         const{roll,username,grade,password}=req.body;
-        const student= await Student.findOne({username})
+        const student= await Student.findOne({ $or: [{ username }, { roll }] })
         if(student)
         {
            return res.json({alreadyRegistered:true,message:"student is registered"})
